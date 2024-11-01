@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/home/bhazeveld/RiderProjects/MCK/MCK/MCK.csproj": {}
+    "C:\\Users\\beheerder\\RiderProjects\\MCK\\MCK\\MCK.csproj": {}
   },
   "projects": {
-    "/home/bhazeveld/RiderProjects/MCK/MCK/MCK.csproj": {
+    "C:\\Users\\beheerder\\RiderProjects\\MCK\\MCK\\MCK.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/bhazeveld/RiderProjects/MCK/MCK/MCK.csproj",
+        "projectUniqueName": "C:\\Users\\beheerder\\RiderProjects\\MCK\\MCK\\MCK.csproj",
         "projectName": "MCK",
-        "projectPath": "/home/bhazeveld/RiderProjects/MCK/MCK/MCK.csproj",
-        "packagesPath": "/home/bhazeveld/.nuget/packages/",
-        "outputPath": "/home/bhazeveld/RiderProjects/MCK/MCK/obj/",
+        "projectPath": "C:\\Users\\beheerder\\RiderProjects\\MCK\\MCK\\MCK.csproj",
+        "packagesPath": "C:\\Users\\beheerder\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\beheerder\\RiderProjects\\MCK\\MCK\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/bhazeveld/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\beheerder\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -32,11 +34,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -50,13 +47,13 @@
             "Microsoft.DotNet.ILCompiler": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.8, )",
+              "version": "[8.0.3, )",
               "autoReferenced": true
             },
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.8, )",
+              "version": "[8.0.3, )",
               "autoReferenced": true
             }
           },
@@ -73,8 +70,8 @@
           "warn": true,
           "downloadDependencies": [
             {
-              "name": "runtime.linux-x64.Microsoft.DotNet.ILCompiler",
-              "version": "[8.0.8, 8.0.8]"
+              "name": "runtime.win-x64.Microsoft.DotNet.ILCompiler",
+              "version": "[8.0.3, 8.0.3]"
             }
           ],
           "frameworkReferences": {
@@ -82,7 +79,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/home/bhazeveld/.dotnet/sdk/8.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
