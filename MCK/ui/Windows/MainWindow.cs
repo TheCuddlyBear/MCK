@@ -1,6 +1,9 @@
 using Adw;
 using CmlLib.Core;
+using CmlLib.Core.Auth;
+using CmlLib.Core.Auth.Microsoft;
 using CmlLib.Core.ProcessBuilder;
+using XboxAuthNet.Game.Msal;
 
 namespace MCK.ui.Windows;
 
@@ -19,9 +22,27 @@ public class MainWindow : ApplicationWindow
 
     private async void LaunchMC()
     {
+        //var loginHandler = JELoginHandlerBuilder.BuildDefault();
+        
+        //var app = await MsalClientHelper.BuildApplicationWithCache()
+        
+        // Only offline sessions till appid is approved.
+        var session = MSession.CreateOfflineSession("bassie");
+        Console.Out.WriteLine($"Login: {session.Username}");
+        
         var launcher = new MinecraftLauncher();
-        var process = await launcher.InstallAndBuildProcessAsync("1.21", new MLaunchOption());
-        process.Start();
+        launcher.FileProgressChanged += (_, e) =>
+        {
+            Console.WriteLine("Name: " + e.Name);
+            Console.WriteLine("EventType: " + e.EventType);
+            Console.WriteLine("TotalTasks: " + e.TotalTasks);
+            Console.WriteLine("ProgressedTasks: " + e.ProgressedTasks);
+        };
+        var proces = await launcher.InstallAndBuildProcessAsync("1.20.4", new MLaunchOption()
+        {
+            Session = session
+        });
+        proces.Start();
     }
 
     private void BuildUi()
@@ -70,9 +91,9 @@ public class MainWindow : ApplicationWindow
             });
             headerBar.SetTitleWidget(titleBox);
             
-            /*var aboutButton = new Gtk.Button() { IconName = "help-about", TooltipText = "About program" };
-            aboutButton.OnClicked += (_ ,_) => new MCK.ui.Elements.AboutDialog().Show(this);
-            headerBar.PackEnd(aboutButton);*/
+            var settingsButton = new Gtk.Button() { IconName = "org.gnome.Settings-symbolic", TooltipText = "Preferences" };
+            settingsButton.OnClicked += (_ ,_) => new MCK.ui.Elements.PreferencesDialog().Show(this);
+            headerBar.PackEnd(settingsButton);
             
             return headerBar;
         }
