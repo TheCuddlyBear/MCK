@@ -22,6 +22,7 @@ public class AboutDialog
         _aboutDialog.SetDeveloperName("TheCuddlyBear");
         _aboutDialog.SetCopyright("Copyright (c) 2024 TheCuddlyBear");
         _aboutDialog.SetDevelopers(new[] { "TheCuddlyBear" });
+        _aboutDialog.SetWebsite("https://github.com/TheCuddlyBear/MCK");
     }
     
     public void Show(ApplicationWindow parent) => _aboutDialog.Present(parent);
