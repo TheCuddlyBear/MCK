@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "iKWuuFtC0SY=",
+  "dgSpecHash": "Cw6dt6uaqlI=",
   "success": true,
-  "projectFilePath": "/home/bhazeveld/RiderProjects/MCK/MCK/MCK.csproj",
+  "projectFilePath": "/home/bhazeveld/RiderProjects/MCKk/MCK/MCK.csproj",
   "expectedPackageFiles": [
     "/home/bhazeveld/.nuget/packages/cmllib.core/4.0.3/cmllib.core.4.0.3.nupkg.sha512",
+    "/home/bhazeveld/.nuget/packages/cmllib.core.auth.microsoft/3.2.0/cmllib.core.auth.microsoft.3.2.0.nupkg.sha512",
     "/home/bhazeveld/.nuget/packages/cmllib.core.commons/4.0.0/cmllib.core.commons.4.0.0.nupkg.sha512",
     "/home/bhazeveld/.nuget/packages/gircore.adw-1/0.5.0/gircore.adw-1.0.5.0.nupkg.sha512",
     "/home/bhazeveld/.nuget/packages/gircore.cairo-1.0/0.5.0/gircore.cairo-1.0.0.5.0.nupkg.sha512",
@@ -21,13 +22,25 @@
     "/home/bhazeveld/.nuget/packages/gircore.pango-1.0/0.5.0/gircore.pango-1.0.0.5.0.nupkg.sha512",
     "/home/bhazeveld/.nuget/packages/gircore.pangocairo-1.0/0.5.0/gircore.pangocairo-1.0.0.5.0.nupkg.sha512",
     "/home/bhazeveld/.nuget/packages/lzma-sdk/19.0.0/lzma-sdk.19.0.0.nupkg.sha512",
-    "/home/bhazeveld/.nuget/packages/microsoft.dotnet.ilcompiler/8.0.8/microsoft.dotnet.ilcompiler.8.0.8.nupkg.sha512",
-    "/home/bhazeveld/.nuget/packages/microsoft.net.illink.tasks/8.0.8/microsoft.net.illink.tasks.8.0.8.nupkg.sha512",
+    "/home/bhazeveld/.nuget/packages/microsoft.dotnet.ilcompiler/8.0.10/microsoft.dotnet.ilcompiler.8.0.10.nupkg.sha512",
+    "/home/bhazeveld/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.1/microsoft.extensions.dependencyinjection.abstractions.8.0.1.nupkg.sha512",
+    "/home/bhazeveld/.nuget/packages/microsoft.extensions.logging.abstractions/8.0.1/microsoft.extensions.logging.abstractions.8.0.1.nupkg.sha512",
+    "/home/bhazeveld/.nuget/packages/microsoft.identity.client/4.61.3/microsoft.identity.client.4.61.3.nupkg.sha512",
+    "/home/bhazeveld/.nuget/packages/microsoft.identity.client.extensions.msal/4.61.3/microsoft.identity.client.extensions.msal.4.61.3.nupkg.sha512",
+    "/home/bhazeveld/.nuget/packages/microsoft.identitymodel.abstractions/6.35.0/microsoft.identitymodel.abstractions.6.35.0.nupkg.sha512",
+    "/home/bhazeveld/.nuget/packages/microsoft.net.illink.tasks/8.0.10/microsoft.net.illink.tasks.8.0.10.nupkg.sha512",
     "/home/bhazeveld/.nuget/packages/sharpziplib/1.4.2/sharpziplib.1.4.2.nupkg.sha512",
+    "/home/bhazeveld/.nuget/packages/system.diagnostics.diagnosticsource/6.0.1/system.diagnostics.diagnosticsource.6.0.1.nupkg.sha512",
+    "/home/bhazeveld/.nuget/packages/system.net.http.json/8.0.0/system.net.http.json.8.0.0.nupkg.sha512",
+    "/home/bhazeveld/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "/home/bhazeveld/.nuget/packages/system.security.cryptography.protecteddata/4.5.0/system.security.cryptography.protecteddata.4.5.0.nupkg.sha512",
     "/home/bhazeveld/.nuget/packages/system.text.encodings.web/8.0.0/system.text.encodings.web.8.0.0.nupkg.sha512",
     "/home/bhazeveld/.nuget/packages/system.text.json/8.0.4/system.text.json.8.0.4.nupkg.sha512",
     "/home/bhazeveld/.nuget/packages/system.threading.tasks.dataflow/8.0.1/system.threading.tasks.dataflow.8.0.1.nupkg.sha512",
-    "/home/bhazeveld/.nuget/packages/runtime.linux-x64.microsoft.dotnet.ilcompiler/8.0.8/runtime.linux-x64.microsoft.dotnet.ilcompiler.8.0.8.nupkg.sha512"
+    "/home/bhazeveld/.nuget/packages/xboxauthnet/3.0.4/xboxauthnet.3.0.4.nupkg.sha512",
+    "/home/bhazeveld/.nuget/packages/xboxauthnet.game/1.3.1/xboxauthnet.game.1.3.1.nupkg.sha512",
+    "/home/bhazeveld/.nuget/packages/xboxauthnet.game.msal/0.1.1/xboxauthnet.game.msal.0.1.1.nupkg.sha512",
+    "/home/bhazeveld/.nuget/packages/runtime.linux-x64.microsoft.dotnet.ilcompiler/8.0.10/runtime.linux-x64.microsoft.dotnet.ilcompiler.8.0.10.nupkg.sha512"
   ],
   "logs": []
 }
