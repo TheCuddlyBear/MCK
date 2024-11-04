@@ -12,7 +12,8 @@ class Program
 {
     static int Main(string[] args)
     {
-        var jsonReader = new JsonTextReader(new StreamReader(System.IO.Directory.GetCurrentDirectory() + "\\appsettings.json"));
+        string path = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "\\appsettings.json" : "//appsettings.json";
+        var jsonReader = new JsonTextReader(new StreamReader(System.IO.Directory.GetCurrentDirectory() + path));
         var JsonSerializer = new JsonSerializer();
 
         ISettings settings = JsonSerializer.Deserialize<ISettings>(jsonReader);

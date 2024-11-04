@@ -31,7 +31,7 @@ public class MainWindow : ApplicationWindow
         BuildUi();
     }
 
-    private async void LaunchMC(ProgressBar bar)
+    private async void LaunchMC(ProgressBar bar, string version)
     {
         //var loginHandler = JELoginHandlerBuilder.BuildDefault();
         
@@ -41,6 +41,7 @@ public class MainWindow : ApplicationWindow
         var session = MSession.CreateOfflineSession(_settings.OfflineUsername);
         Console.Out.WriteLine($"Login: {session.Username}");
         
+        _progress.Show();
         var launcher = new MinecraftLauncher();
         launcher.FileProgressChanged += (_, e) =>
         {
@@ -59,6 +60,7 @@ public class MainWindow : ApplicationWindow
             Session = session
         });
         proces.Start();
+        _progress.Hide();
     }
 
     private void BuildUi()
@@ -74,20 +76,17 @@ public class MainWindow : ApplicationWindow
         NavigationSplitView GetToolbarView()
         {
             _progress = new ProgressBar();
-            _progress.SetShowText(true);
+            //_progress.SetShowText(true);
             _progress.SetText("Test");
+            _progress.Hide();
             
             var toolbarView = new ToolbarView();
             toolbarView.AddTopBar(GetHeaderBar());
+            toolbarView.AddBottomBar(GetActionBar());
             toolbarView.SetContent(_progress);
-            
-            var launchButton = new Gtk.Button();
-            launchButton.SetLabel("Launch MC");
-            launchButton.OnClicked += (_, __) => LaunchMC(_progress);
             
             var sideBarview = new ToolbarView();
             sideBarview.AddTopBar(GetSideHeaderBar());
-            sideBarview.SetContent(launchButton);
 
             var sidePane = new NavigationPage();
             sidePane.SetChild(sideBarview);
@@ -117,6 +116,41 @@ public class MainWindow : ApplicationWindow
             headerBar.PackEnd(settingsButton);
             
             return headerBar;
+        }
+
+        Gtk.ActionBar GetActionBar()
+        {
+            var actionBar = new ActionBar();
+            var launcher = new MinecraftLauncher();
+            var version = launcher.GetAllVersionsAsync().Result;
+            List<string> versions = new List<string>();
+            
+            foreach (var ver in version)
+            {
+                versions.Append(ver.Name);
+            }
+            
+            var comboBox = new DropDown();
+            var stringList = StringList.New(versions.ToArray());
+            comboBox.SetModel(stringList);
+            comboBox.OnActivate += (dr, args) =>
+                {
+                    Console.WriteLine(dr.GetSelectedItem().ToString());
+                }
+;            
+            var launchButton = new Gtk.Button();
+            launchButton.SetLabel("Launch");
+            launchButton.OnClicked += (_, __) => LaunchMC(_progress, comboBox.GetSelectedItem().ToString());
+            launchButton.WidthRequest = 150;
+            
+            actionBar.SetCenterWidget(launchButton);
+            actionBar.PackStart(comboBox);
+
+            actionBar.HeightRequest = 60;
+
+            launcher = null;
+            return actionBar;
+
         }
         
         HeaderBar GetSideHeaderBar()
