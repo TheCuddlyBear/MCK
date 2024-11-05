@@ -4,6 +4,7 @@ using CmlLib.Core.Auth;
 using CmlLib.Core.Auth.Microsoft;
 using CmlLib.Core.ProcessBuilder;
 using Gtk;
+using MCK.ui.Elements;
 using MCK.util;
 using Microsoft.Extensions.Hosting;
 using XboxAuthNet.Game.Msal;
@@ -41,14 +42,14 @@ public class MainWindow : ApplicationWindow
         var session = MSession.CreateOfflineSession(_settings.OfflineUsername);
         Console.Out.WriteLine($"Login: {session.Username}");
         
-        _progress.Show();
+        bar.Show();
         var launcher = new MinecraftLauncher();
         launcher.FileProgressChanged += (_, e) =>
         {
             double frac = (double)e.ProgressedTasks / (double)e.TotalTasks;
             
-            _progress.SetFraction(frac);
-            _progress.SetText(e.Name);
+            bar.SetFraction(frac);
+            bar.SetText(e.Name);
             
             /*Console.WriteLine("Name: " + e.Name);
             Console.WriteLine("EventType: " + e.EventType);
@@ -60,7 +61,7 @@ public class MainWindow : ApplicationWindow
             Session = session
         });
         proces.Start();
-        _progress.Hide();
+        bar.Hide();
     }
 
     private void BuildUi()
@@ -129,22 +130,21 @@ public class MainWindow : ApplicationWindow
             {
                 versions.Append(ver.Name);
             }
-            
-            var comboBox = new DropDown();
-            var stringList = StringList.New(versions.ToArray());
-            comboBox.SetModel(stringList);
-            comboBox.OnActivate += (dr, args) =>
+
+            var versionButton = new Gtk.Button();
+            versionButton.SetLabel("Choose version");
+            versionButton.OnClicked += (sender, args) =>
                 {
-                    Console.WriteLine(dr.GetSelectedItem().ToString());
+                    VersionChooserDialog.ChooseVersion(this ,"1.20.4");
                 }
 ;            
             var launchButton = new Gtk.Button();
             launchButton.SetLabel("Launch");
-            launchButton.OnClicked += (_, __) => LaunchMC(_progress, comboBox.GetSelectedItem().ToString());
+            launchButton.OnClicked += (_, __) => LaunchMC(_progress, "1.20.4");
             launchButton.WidthRequest = 150;
             
             actionBar.SetCenterWidget(launchButton);
-            actionBar.PackStart(comboBox);
+            actionBar.PackStart(versionButton);
 
             actionBar.HeightRequest = 60;
 
