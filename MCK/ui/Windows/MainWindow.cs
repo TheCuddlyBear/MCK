@@ -1,13 +1,8 @@
 using Adw;
 using CmlLib.Core;
-using CmlLib.Core.Auth;
-using CmlLib.Core.Auth.Microsoft;
-using CmlLib.Core.ProcessBuilder;
 using Gtk;
 using MCK.ui.Elements;
 using MCK.util;
-using Microsoft.Extensions.Hosting;
-using XboxAuthNet.Game.Msal;
 using Application = Adw.Application;
 using ApplicationWindow = Adw.ApplicationWindow;
 using HeaderBar = Adw.HeaderBar;
@@ -21,7 +16,7 @@ public class MainWindow : ApplicationWindow
     private StatusPage _noProjectOpenedPage;
     private ToastOverlay _toastOverlay;
 
-    private Gtk.ProgressBar _progress;
+    private ProgressBar _progress;
 
     private ISettings _settings;
     
@@ -32,37 +27,7 @@ public class MainWindow : ApplicationWindow
         BuildUi();
     }
 
-    private async void LaunchMC(ProgressBar bar, string version)
-    {
-        //var loginHandler = JELoginHandlerBuilder.BuildDefault();
-        
-        //var app = await MsalClientHelper.BuildApplicationWithCache()
-        
-        // Only offline sessions till appid is approved.
-        var session = MSession.CreateOfflineSession(_settings.OfflineUsername);
-        Console.Out.WriteLine($"Login: {session.Username}");
-        
-        bar.Show();
-        var launcher = new MinecraftLauncher();
-        launcher.FileProgressChanged += (_, e) =>
-        {
-            double frac = (double)e.ProgressedTasks / (double)e.TotalTasks;
-            
-            bar.SetFraction(frac);
-            bar.SetText(e.Name);
-            
-            /*Console.WriteLine("Name: " + e.Name);
-            Console.WriteLine("EventType: " + e.EventType);
-            Console.WriteLine("TotalTasks: " + e.TotalTasks);
-            Console.WriteLine("ProgressedTasks: " + e.ProgressedTasks);*/
-        };
-        var proces = await launcher.InstallAndBuildProcessAsync("1.20.4", new MLaunchOption()
-        {
-            Session = session
-        });
-        proces.Start();
-        bar.Hide();
-    }
+    
 
     private void BuildUi()
     {
@@ -76,15 +41,9 @@ public class MainWindow : ApplicationWindow
 
         NavigationSplitView GetToolbarView()
         {
-            _progress = new ProgressBar();
-            //_progress.SetShowText(true);
-            _progress.SetText("Test");
-            _progress.Hide();
-            
             var toolbarView = new ToolbarView();
             toolbarView.AddTopBar(GetHeaderBar());
             toolbarView.AddBottomBar(GetActionBar());
-            toolbarView.SetContent(_progress);
             
             var sideBarview = new ToolbarView();
             sideBarview.AddTopBar(GetSideHeaderBar());
@@ -122,36 +81,29 @@ public class MainWindow : ApplicationWindow
         Gtk.ActionBar GetActionBar()
         {
             var actionBar = new ActionBar();
-            var launcher = new MinecraftLauncher();
-            var version = launcher.GetAllVersionsAsync().Result;
-            List<string> versions = new List<string>();
-            
-            foreach (var ver in version)
-            {
-                versions.Append(ver.Name);
-            }
 
             var versionButton = new Gtk.Button();
-            versionButton.SetLabel("Choose version");
+            versionButton.SetLabel(_settings.Version);
+            
             versionButton.OnClicked += (sender, args) =>
                 {
-                    VersionChooserDialog.ChooseVersion(this ,"1.20.4");
+                    VersionChooserDialog.ChooseVersion(this ,_settings);
                 }
 ;            
             var launchButton = new Gtk.Button();
             launchButton.SetLabel("Launch");
-            launchButton.OnClicked += (_, __) => LaunchMC(_progress, "1.20.4");
+            launchButton.OnClicked += (_, _) => Utility.LaunchMC(_progress, _settings);
             launchButton.WidthRequest = 150;
             
             actionBar.SetCenterWidget(launchButton);
             actionBar.PackStart(versionButton);
 
             actionBar.HeightRequest = 60;
-
-            launcher = null;
+            
             return actionBar;
 
         }
+        
         
         HeaderBar GetSideHeaderBar()
         {
