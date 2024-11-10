@@ -12,10 +12,12 @@ public class VersionChooserDialog : Adw.Dialog
     private ISettings _settings;
     private ListBox _listBox;
     private WindowTitle _windowTitle;
+    private Button _button;
 
-    public VersionChooserDialog(ISettings settings)
+    public VersionChooserDialog(ISettings settings, Button button)
     {
         _settings = settings;
+        _button = button;
         BuildUi();
     }
 
@@ -84,6 +86,7 @@ public class VersionChooserDialog : Adw.Dialog
                 Label selectedlabel = (Label)_listBox.GetSelectedRow().GetChild();
 
                 _settings.Version = selectedlabel.GetLabel();
+                _button.SetLabel(selectedlabel.GetLabel());
                 
                 Program.WriteSettings(_settings);
                 Close();
@@ -97,9 +100,9 @@ public class VersionChooserDialog : Adw.Dialog
 
     }
 
-    public static void ChooseVersion(ApplicationWindow parent, ISettings settings)
+    public static void ChooseVersion(ApplicationWindow parent, ISettings settings, Button button)
     {
-        var dialog = new VersionChooserDialog(settings);
+        var dialog = new VersionChooserDialog(settings, button);
         dialog.Present(parent);
     }
 

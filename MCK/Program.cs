@@ -12,21 +12,23 @@ class Program
 {
     static int Main(string[] args)
     {
-        string path = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "\\appsettings.json" : "//appsettings.json";
-        var jsonReader = new JsonTextReader(new StreamReader(System.IO.Directory.GetCurrentDirectory() + path));
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            throw new PlatformNotSupportedException();
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            Utility.FirstStartupWindows();
+            const string dllDirectory = @"C:/msys64/mingw64/bin";
+            Environment.SetEnvironmentVariable("PATH", Environment.GetEnvironmentVariable("PATH") + ";" + dllDirectory);
+        }
+
+        string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        string path = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? Path.Combine(folder, ".mck\\appsettings.json") : "//appsettings.json";
+        var jsonReader = new JsonTextReader(new StreamReader(path));
         var JsonSerializer = new JsonSerializer();
 
         ISettings settings = JsonSerializer.Deserialize<ISettings>(jsonReader);
         
         jsonReader.Close();
-            
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            throw new PlatformNotSupportedException();
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-        {
-            const string dllDirectory = @"C:/msys64/mingw64/bin";
-            Environment.SetEnvironmentVariable("PATH", Environment.GetEnvironmentVariable("PATH") + ";" + dllDirectory);
-        }
         
         var application = Adw.Application.New("com.sirkadirov.overtest.tde", Gio.ApplicationFlags.FlagsNone);
         application.OnActivate += (sender, _) => new MainWindow((Adw.Application)sender, settings).Show();

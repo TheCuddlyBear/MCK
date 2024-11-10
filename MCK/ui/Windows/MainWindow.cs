@@ -24,6 +24,7 @@ public class MainWindow : ApplicationWindow
     {
         Application = application;
         _settings = settings;
+        _progress = new ProgressBar();
         BuildUi();
     }
 
@@ -87,7 +88,7 @@ public class MainWindow : ApplicationWindow
             
             versionButton.OnClicked += (sender, args) =>
                 {
-                    VersionChooserDialog.ChooseVersion(this ,_settings);
+                    VersionChooserDialog.ChooseVersion(this ,_settings, sender);
                 }
 ;            
             var launchButton = new Gtk.Button();
